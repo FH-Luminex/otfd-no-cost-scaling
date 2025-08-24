@@ -1,0 +1,274 @@
+.notad-popup > div {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    font-family: Inter, Arial, Helvetica, FreeSans, sans-serif;
+    position: relative;
+}
+.notad-popup > div > .taunt {
+    font-size: calc(1em + min(2dvh, 1.5dvw));
+    padding: 0.5em 1em;
+    color: black;
+    background: white;
+    font-family: Arial, Helvetica, FreeSans, sans-serif;
+    text-align: center;
+}
+.notad-popup > div > .content {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 3em;
+}
+
+.notad-popup > div > .info {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    padding-bottom: 1em;
+    align-items: center;
+}
+.notad-popup > div > .info > div {
+    background-color: #000a;
+    display: flex;
+    padding: 0.5em;
+    gap: 0.5em;
+    align-items: center;
+}
+
+.notad-popup > div > .info > div:first-child {
+    border-radius: 0 0.25em 0.25em 0;
+}
+.notad-popup > div > .info span {
+    display: block;
+    padding-inline-end: 0.5em;
+}
+.notad-popup > div > .info > div:last-child {
+    margin-inline-start: auto;
+    border-radius: 0.25em 0 0 0.25em;
+}
+.notad-popup > div > .info button {
+    border: none;
+    background: #666;
+    box-shadow: none;
+    font: inherit;
+}
+.notad-popup > div > .info button:disabled {
+    background: #444;
+}
+
+.notad-popup > div > .splash {
+    position: absolute;
+    inset: 0;
+    background: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: 1s ad-splash-bg forwards ease-in-out;
+    z-index: 100;
+}
+.notad-popup > div > .splash.hidden {
+    transform: scale(1.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.notad-popup > div > .splash h3 {
+    font-size: calc(1em + min(2dvh, 1.5dvw));
+    letter-spacing: -5%;
+}
+.notad-popup > div > .splash p {
+    display: inline-block;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    background: #0007;
+    border-radius: 0.1em;
+    padding: 0.3em 0.6em;
+    border-radius: 0.25em;
+    font-weight: bold;
+}
+
+@keyframes ad-splash-bg {
+    from {
+        background: linear-gradient(30deg, blue, magenta);
+    } 25% {
+        background: linear-gradient(40deg, blue, magenta);
+    } 50% {
+        background: linear-gradient(55deg, blue, magenta);
+    } 75% {
+        background: linear-gradient(70deg, blue, magenta);
+    } to {
+        background: linear-gradient(80deg, blue, magenta);
+    }
+}
+
+.notad-popup .app-icon {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    border-radius: 0.25em;
+    background: linear-gradient(30deg, #44f, #f7f);
+    box-shadow: 0 .1em .3em #0007;
+}
+.notad-popup > div > .splash .app-icon {
+    font-size: 4em;
+    margin-bottom: 0.25em;
+}
+
+
+.minigame-sort {
+    display: flex;
+    flex-direction: column;
+    background: rgb(171, 207, 255);
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+.minigame-sort .tubes {
+    --capacity: 4;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding: 10dvh 2em calc(1em + 5dvh) 2em;
+    overflow: hidden;
+}
+.minigame-sort tube {
+    --base-shadow: 0 -.1em 0 0em #0005, 0 0 0 .1em white, inset 0 .4em .2em -.2em #fff2, inset -.8em -.2em 1em -.5em #0007, -.2em .2em .5em #0003;
+    display: block;
+    flex: 0 0 3.5em;
+    width: 3.5em;
+    height: calc(0.25em + 3.225em * var(--capacity));
+    border-radius: 0 0 2em 2em;
+    box-shadow: var(--base-shadow);
+    background: linear-gradient(90deg, #0005, #0007, #0004);
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.1em;
+    padding: 0.25em;
+    position: relative;
+}
+.minigame-sort tube:hover {
+    box-shadow: var(--base-shadow), -.2em .2em .4em #0007;
+}
+.minigame-sort tube:active {
+    box-shadow: var(--base-shadow), -.2em .2em .4em #0007;
+    filter: brightness(0.9);
+}
+.minigame-sort tube::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0.5em auto 1.5em 2.5em;
+    width: 0.25em;
+    background: white;
+    border-radius: 0.125em;
+    filter: blur(0.5em);
+    z-index: 2;
+}
+.minigame-sort ball {
+    display: block;
+    width: 3em;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.minigame-sort ball span {
+    display: block;
+    width: 3em;
+    height: 3em;
+    border-radius: 1.5em;
+    box-shadow: inset 0 0 0 .1em #fffa, inset .3em -.3em 1em #fffa, inset -.3em .3em 1em #0007, -.1em .1em .1em #0003;
+    position: absolute;
+    overflow: hidden;
+    background-clip: content-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.minigame-sort ball iconify-icon {
+    font-size: 1.5em;
+    color: #0004;
+    filter: drop-shadow(-0.1em 0.1em 0.2em #fff);
+}
+.minigame-sort ball.selected span {
+    transform: translateY(-2em);
+    animation: 3s ease-in-out infinite sort-ball-pulsing;
+}
+.minigame-sort ball span::before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0.5em auto auto 1.5em;
+    width: 1em;
+    height: 1em;
+    background: white;
+    border-radius: 50%;
+    filter: blur(0.5em);
+}
+.minigame-sort ball[color="1"]  span { background: red; }
+.minigame-sort ball[color="2"]  span { background: limegreen; }
+.minigame-sort ball[color="3"]  span { background: blue; }
+.minigame-sort ball[color="4"]  span { background: orange; }
+.minigame-sort ball[color="5"]  span { background: yellow; }
+.minigame-sort ball[color="6"]  span { background: cyan; }
+.minigame-sort ball[color="7"]  span { background: magenta; }
+.minigame-sort ball[color="8"]  span { background: silver; }
+.minigame-sort ball[color="9"]  span { background: brown; }
+.minigame-sort ball[color="10"] span { background: black; }
+.minigame-sort ball[color="11"] span { background: plum; }
+.minigame-sort ball[color="12"] span { background: chartreuse; }
+.minigame-sort ball[color="13"] span { background: gray; }
+.minigame-sort ball[color="14"] span { background: hotpink; }
+.minigame-sort ball[color="15"] span { background: deepskyblue; }
+
+.minigame-sort .controls {
+    text-align: center;
+    padding-bottom: 5dvh;
+    flex: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1em;
+}
+.minigame-sort .controls button {
+    font-family: Fredoka, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    border: none;
+    background-clip: border-box;
+    border-radius: 100vw;
+    padding: .4em 1em .5em 1em;
+    background: linear-gradient(#55f, #337);
+    box-shadow: 0 0 0 2px white, 0 2px 4px 2px #0007,
+        inset 0 0 0 2px #0007, inset 4px -8px 8px -4px #0007, inset -4px 8px 8px -4px #fff7;
+    text-shadow: 0 2px #0007;
+    transition: transform .5s;
+}
+.minigame-sort .controls button:hover {
+    background: linear-gradient(#88f, #447);
+    transform: translateY(-2px);
+    transition: transform .3s;
+}
+.minigame-sort .controls button:active {
+    background: linear-gradient(#225, #44c);
+    box-shadow: 0 0 0 2px white, 0 2px 4px 2px #0007,
+        inset 0 0 0 2px #0007, inset -4px 8px 8px -4px #0007, inset 4px -8px 8px -4px #fff7;
+    transform: none;
+    transition: transform .1s;
+}
+
+@keyframes sort-ball-pulsing {
+    from {
+        filter: none;
+    } 50% {
+        filter: contrast(1.4) brightness(0.8)
+    } to {
+        filter: none;
+    }
+}

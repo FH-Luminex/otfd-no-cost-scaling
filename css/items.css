@@ -1,0 +1,995 @@
+
+#currencies {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+#currencies .hoz-group {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+}
+#currencies .hoz-group > * {
+    flex: 1;
+}
+#currencies .faction-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+}
+#currencies .margin-bottom {
+    margin-bottom: 4px;
+}
+.currency {
+    position: relative;
+    background: var(--background-2);
+    border: 1px solid var(--border-0);
+    padding: 2px 5px;
+    border-radius: 5px;
+    box-shadow: var(--shadow-1);
+}
+.currency > span:last-child {
+    font-family: var(--number-font);
+    position: absolute;
+    right: 5px;
+}
+.currency.f-fire {
+    background: var(--faction-fire-bg);
+}
+.currency.f-water {
+    background: var(--faction-water-bg);
+}
+.currency.f-leaf {
+    background: var(--faction-leaf-bg);
+}
+.currency.f-sun {
+    background: var(--faction-sun-bg);
+}
+.currency.f-moon {
+    background: var(--faction-moon-bg);
+}
+
+.currency::before {
+    content: attr(data-name);
+}
+  
+.card-list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 5px;
+}
+
+.game-card {
+    --inside-radius: 5px;
+
+    position: relative;
+    width: calc(120px * var(--card-size, 1));
+    height: calc(180px * var(--card-size, 1));
+    background: var(--rarity-gradient);
+    border-radius: 5px;
+    box-shadow: var(--shadow-1);
+    text-align: center;
+    box-sizing: content-box;
+    padding: 1px;
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+.game-card::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: #000000cc;
+    border-radius: var(--inside-radius);
+}
+.game-card.f-fire {
+    --card-color: var(--faction-fire-color);
+}
+.game-card.f-water {
+    --card-color: var(--faction-water-color);
+}
+.game-card.f-leaf {
+    --card-color: var(--faction-leaf-color);
+}
+.game-card.f-sun {
+    --card-color: var(--faction-sun-color);
+}
+.game-card.f-moon {
+    --card-color: var(--faction-moon-color);
+}
+.game-card > img {
+    position: absolute;
+    inset: 0;
+    width: calc(120px * var(--card-size, 1));
+    height: calc(180px * var(--card-size, 1));
+    margin: 1px;
+    border-radius: 4px;
+    pointer-events: none;
+    image-rendering: pixelated;
+}
+.game-card-name {
+    position: absolute;
+    inset: auto 1px 1px 1px;
+    padding: 20px 10px 5px 10px;
+    color: var(--card-color);
+    background: linear-gradient(var(--card-gradient));
+    border-radius: 0 0 4px 4px;
+    text-shadow: var(--shadow-0), var(--shadow-1), var(--shadow-1);
+    font-size: calc(1em * min(var(--card-size, 1), 1));
+    --rarity-filter: drop-shadow(var(--shadow-0)) drop-shadow(var(--shadow-0));
+}
+.game-card-stars {
+    position: absolute;
+    inset: 1px 1px auto 1px;
+    padding: calc(5px * var(--card-size, 1)) calc(10px * var(--card-size, 1));
+    color: var(--color-3);
+    background: linear-gradient(0deg, var(--card-gradient));
+    font-size: calc(18px * var(--card-size, 1));
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 4px 4px 0 0;
+    filter: drop-shadow(0 0 2px black);
+}
+.game-card-stars:empty {
+    display: none;
+}
+.game-card-stars [icon*="-fill"] {
+    color: var(--card-star-color);
+    z-index: 1;
+}
+.game-card-stars.crown {
+    font-size: calc(24px * var(--card-size, 1));
+    line-height: 18px;
+}
+.game-card .draw-amount {
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    display: inline-block;
+    padding: 3px 7px;
+    border-radius: 5px;
+    position: absolute;
+    left: 80%;
+    top: -10px;
+    transform: translateX(-50%) rotate(10deg);
+    z-index: 3;
+    white-space: nowrap;
+}
+.game-card .new-banner-holder {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+}
+.game-card .new-banner {
+    position: absolute;
+    top: 40px;
+    left: -70%;
+    width: 200%;
+    padding: 2px;
+    transform-origin: center left;
+    transform: rotate(-15deg);
+    border-block: 1px solid var(--border-0);
+    background: var(--card-new-bg);
+    color: var(--card-new-color);
+    z-index: 2;
+    animation: new-banner-in 1s ease-out;
+}
+@keyframes new-banner-in {
+    from {
+        filter: contrast(0) brightness(15);
+        transform: rotate(-15deg) scaleX(0);
+    } 50% {
+        transform: rotate(-15deg) scaleX(1);
+    } to {
+        filter: none;
+    }
+}
+.game-card .new-banner::before {
+    content: "";
+    position: absolute;
+    inset: -250px;
+    background: white;
+    opacity: 0;
+    animation: new-banner-before-in 1s ease-out;
+}
+@keyframes new-banner-before-in {
+    from {
+        right: 250px;
+        opacity: 1;
+    } to {
+        right: -250px;
+        opacity: 0;
+    }
+}
+
+.game-card .shred-holder {
+    position: absolute;
+    inset: 1px;
+    background: var(--card-shred-bg);
+    color: var(--card-shred-color);
+    overflow: hidden;
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+    animation: shred-holder-in 0.6s;
+}
+@keyframes shred-holder-in {
+    50% {
+        opacity: 0;
+    }
+}
+
+.game-card .shred-holder ~ .draw-amount {
+    filter: brightness(0.5);
+    opacity: 0.5;
+    animation: shred-amount-in 0.6s;
+}
+@keyframes shred-amount-in {
+    50% {
+        filter: none;
+        opacity: 1;
+    }
+}
+
+.card-block > .game-card:not(:last-child),
+.card-block > .game-card:not(:last-child)::before,
+.card-block > .game-card:not(:last-child) .game-card-name,
+.card-block > .game-card:not(:last-child) img {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.card-block > .card-action {
+    display: flex;
+}
+.card-block > .card-action > * {
+    flex: 1;
+    border-radius: 0;
+    font-size: calc(1em * min(var(--card-size, 1), 1));
+}
+.card-block > .card-action > :first-child {
+    border-bottom-left-radius: 5px;
+}
+.card-block > .card-action > :last-child {
+    border-bottom-right-radius: 5px;
+}
+.card-block > .card-action > :is([state="off"], [state="max"]) {
+    color: var(--color-4);
+}
+.card-block > .card-action > [state="noafford"] {
+    color: var(--color-2);
+}
+.card-block > .card-action > [state="noafford"]:disabled {
+    --fill: calc(var(--progress) * 100%);
+    background: linear-gradient(var(--bg-1), var(--bg-1)), linear-gradient(var(--bg-0), var(--bg-0));
+    background-position: bottom;
+    background-repeat: no-repeat, repeat;
+    background-size: 100% var(--fill), 100% 100%;
+}
+.card-block > .card-action > :not(:disabled) {
+    --bg-0: var(--button-value-bg-0);
+    --bg-1: var(--button-value-bg-1);
+    --bg-2: var(--button-value-bg-2);
+    --color: var(--button-inv-color);
+    --color-active: var(--button-inv-color-active);
+    --text-shadow: 0 1px var(--button-inv-text-shadow);
+}
+
+.skill-holder {
+    display: flex;
+    gap: 2px;
+}
+.skill-holder.reaction {
+    animation: shake .5s infinite;
+}
+.skill-holder > button {
+    flex: 1;
+    aspect-ratio: 1;
+    position: relative;
+}
+.skill-holder > button.disabled {
+    border-color: var(--border-0);
+    color: var(--color-active);
+    background: var(--bg-0);
+    cursor: default;
+}
+.skill-holder > button::before {
+    content: var(--stack);
+    font-family: var(--number-font);
+    position: absolute;
+    inset: -5px 5px auto 5px;
+    text-align: center;
+    background: var(--bg-2);
+    border: 1px solid var(--border-1);
+    border-radius: 3px;
+    box-shadow: var(--shadow-1);
+    padding: 1px 0 0 0;
+    display: block;
+    font-size: smaller;
+    white-space: nowrap;
+}
+.skill-holder > button::after {
+    content: var(--cooldown);
+    font-family: var(--number-font);
+    position: absolute;
+    inset: auto 0 0 0;
+    border-radius: 4px;
+    text-align: center;
+    background: linear-gradient(#0000, var(--bg-1));
+    padding-top: 30px;
+    display: block;
+    font-size: smaller;
+    white-space: nowrap;
+}
+.skill-holder > button.disabled::after {
+    background: linear-gradient(#0000, var(--background-0));
+}
+.skill-holder > button.active {
+    background: var(--bg-1);
+    border-color: var(--border-1);
+    box-shadow: 0px 1px 2px var(--bg-2);
+}
+.skill-holder > button.active::after {
+    background: linear-gradient(#0000, var(--bg-2));
+}
+.skill-holder > button > iconify-icon {
+    font-size: 2em;
+}
+
+
+.buff-holder {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+    gap: 2px;
+}
+.buff-holder:empty {
+    display: none;
+}
+.buff-holder .buff {
+    position: relative;
+    background: conic-gradient(var(--background-1) calc(100% * var(--progress)), var(--background-0) calc(100% * var(--progress))) no-repeat;
+    border: 1px solid var(--border-0);
+    border-radius: 5px;
+    aspect-ratio: 1;
+    cursor: default;
+    overflow: hidden;
+}
+.buff-holder .buff:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: conic-gradient(transparent calc(100% * var(--progress) - 10%), #fff3 calc(100% * var(--progress)), #0007 calc(100% * var(--progress)));
+}
+.buff-holder .buff iconify-icon {
+    position: absolute;
+    inset: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+}
+.buff-holder .buff iconify-icon:first-child {
+    font-size: 48px;
+    color: var(--background-2);
+}
+
+
+
+
+  
+.market-list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+  
+.market-item {
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: end;
+    width: 400px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+.market-item h4 {
+    padding: 10px 10px 0 10px;
+    font-size: 1.25em;
+    text-align: start;
+}
+.market-item p {
+    text-align: start;
+    margin: 0;
+    padding: 5px 10px 0 10px;
+}
+.market-item .buttons {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 2px;
+    justify-content: end;
+}
+.market-item > div:last-child {
+    margin-top: 10px;
+}
+
+.market-item.long {
+    width: max(500px, 50%);
+}
+
+.market-item.account-sell .sell-value {
+    margin: 10px 0 0 0;
+    text-align: start;
+} 
+.market-item.account-sell .sell-value ul {
+    list-style: none;
+    display: flex;
+    gap: 2ch;
+    flex-flow: row wrap;
+    margin: 5px 10px 0px 10px;
+    padding: 0;
+}
+.market-item.account-sell .sell-value li {
+    flex: 0 0 100px;
+    min-width: fit-content;
+}
+.market-item.account-sell .sell-value li .number {
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+.subtab-holder {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+.subtab-holder .tab-buttons {
+    padding-inline: 10px;
+    position: sticky;
+    margin: -5px -10px 0 -10px;
+}
+.subtab-content {
+    flex: 1;
+    margin: -10px -10px -20px -10px;
+    padding: 10px;
+    overflow-y: auto;
+}
+.tab-buttons:not([style*="none"]) + .subtab-content {
+    margin-top: 0;
+}
+.infobook-cards {
+    --inline-padding: 40px;
+    flex: 1;
+    position: relative;
+    display: flex;
+    gap: 10px;
+    margin: -10px -20px;
+    padding: 10px 0 10px var(--inline-padding);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline-start: var(--inline-padding);
+    align-items: stretch;
+    mask: linear-gradient(white, white) left / calc(100% - 40px) repeat-y, 
+        linear-gradient(90deg, white, #0000) right / 40px repeat-y;
+}
+.infobook-cards::after {
+    content: "";
+    display: block;
+    flex: 0 0 calc(var(--length) * calc(var(--item-width) + 10px) + var(--inline-padding) - 10px);
+    background: transparent;
+}
+.infobook-card {
+    position: absolute;
+    left: calc(var(--index) * calc(var(--item-width) + 10px) + var(--inline-padding));
+    width: var(--item-width);
+    top: 10px;
+    bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    border-radius: 5px;
+    box-shadow: var(--shadow-2);
+    scroll-snap-align: start;
+}
+.infobook-card > .header {
+    padding: 7px 10px;
+    background: linear-gradient(20deg, var(--background-2), transparent);
+    border-radius: 4px 4px 0 0;
+}
+.infobook-card > .content {
+    padding: 5px 10px 9px 10px;
+    overflow-y: auto;
+    flex: 1;
+}
+.page-indicators {
+    margin-block: 10px 5px;
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    z-index: 1;
+}
+.page-indicators > .indicator {
+    flex: 0 1 40px;
+    height: 5px;
+    background: linear-gradient(var(--background-1), var(--background-1) 50%, var(--color-0) 50%, var(--color-0)) 
+        -1px calc(var(--lit, 0) * calc(100% + 2px) - 1px) 
+        / calc(100% + 2px) 400% no-repeat;
+    border: 1px solid var(--border-0);
+    box-shadow: var(--shadow-1);
+    border-radius: 2px;
+    cursor: pointer;
+}
+.infobook-holder .page-button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+.infobook-holder .page-button.left {
+    left: -15px;
+    top: 50%;
+}
+.infobook-holder .page-button.right {
+    right: -15px;
+    top: 50%;
+}
+.stat-entry {
+    display: flex;
+    align-items: baseline;
+    align-items: last baseline;
+    border-bottom: 1px dashed var(--border-0);
+    padding-block: 2px;
+    margin-top: 3px;
+}
+.stat-entry > .value {
+    flex: 1;
+    text-align: end;
+}
+.stat-entry > button {
+    padding: 2px 5px;
+    margin-block: -3px;
+}
+.stat-entry > button:disabled {
+    --fill: calc(var(--progress) * 100%);
+    background: linear-gradient(var(--bg-1), var(--bg-1)), linear-gradient(var(--bg-0), var(--bg-0));
+    background-position: bottom;
+    background-repeat: no-repeat, repeat;
+    background-size: 100% var(--fill), 100% 100%;
+}
+.stat-entry > button:not(:disabled) {
+    --bg-0: var(--button-value-bg-0);
+    --bg-1: var(--button-value-bg-1);
+    --bg-2: var(--button-value-bg-2);
+    --color: var(--button-inv-color);
+    --color-active: var(--button-inv-color-active);
+    --text-shadow: 0 1px var(--button-inv-text-shadow);
+}
+
+.badge-list {
+    display: grid;
+    padding-block: 5px 1px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    align-content: start;
+}
+.badge-list .badge {
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: var(--rarity-ex);
+    box-shadow: var(--shadow-1);
+    padding: 1px;
+    position: relative;
+    animation: badge-flair 3s infinite linear;
+}
+.badge-list .badge.locked {
+    background: var(--border-0);
+    animation: none;
+    transform: translateY(1px);
+}
+.badge-list .badge.locked:after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: url(../res/badges/locked.png) center / 100% 100%;
+    image-rendering: pixelated;
+}
+.badge-list .badge > img {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+}
+.badge-list .badge.locked > img {
+    opacity: 0.5;
+    filter: blur(5px);
+}
+@keyframes badge-flair {
+    0% { box-shadow: 0 2px 4px #faa; }
+    16% { box-shadow: 0 2px 4px #dd1; }
+    33% { box-shadow: 0 2px 4px #5f5; }
+    50% { box-shadow: 0 2px 4px #3ff; }
+    66% { box-shadow: 0 2px 4px #aaf; }
+    83% { box-shadow: 0 2px 4px #f9f; }
+    100% { box-shadow: 0 2px 4px #faa; }
+}
+.show-list {
+    padding-block: 5px 1px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+
+.opt-container {
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    padding: 0 10px 10px 10px;
+    border-radius: 5px;
+    box-shadow: var(--shadow-2);
+}
+.opt-container + .opt-container {
+    margin-top: 10px;
+}
+.opt-container > h3 {
+    margin-top: 10px;
+}
+.opt-entry {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin-top: 10px;
+    gap: 10px;
+}
+.opt-entry.before {
+    margin-top: 2px;
+}
+.opt-entry > label {
+    flex: 0 0 200px;
+    text-align: end;
+}
+.opt-entry > label > small {
+    color: var(--color-1);
+}
+.opt-entry > span {
+    display: block;
+    width: 100%;
+}
+.save-timer-br::after {
+    white-space: pre-wrap;
+    content: "\A";
+}
+
+.choice-group {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    gap: 2px;
+}
+.choice-group button:disabled {
+    color: var(--color-0);
+    border-color: var(--border-1);
+    font-weight: bold;
+    background: var(--background-1);
+    box-shadow: inset var(--shadow-2), inset var(--shadow-1);
+}
+.choice-group button.f-fire:disabled {
+    background: var(--button-fire-bg-0);
+}
+.choice-group button.f-water:disabled {
+    background: var(--button-water-bg-0);
+}
+.choice-group button.f-leaf:disabled {
+    background: var(--button-leaf-bg-0);
+}
+.choice-group button.f-sun:disabled {
+    background: var(--button-sun-bg-0);
+}
+.choice-group button.f-moon:disabled {
+    background: var(--button-moon-bg-0);
+}
+.faction-picker.locked {
+    display: none;
+}
+.faction-picker > * {
+    flex: 1;
+}
+
+
+.slider-group {
+    display: flex;
+    flex-flow: row;
+    align-items: baseline;
+    gap: 10px;
+}
+.slider-group .custom-slider {
+    flex: 0 1 250px;
+}
+.slider-group label {
+    font-weight: bold;
+    min-width: 10em;
+}
+
+.custom-slider {
+    height: calc(1.2em + 8px);
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+}
+.custom-slider::before {
+    content: " ";
+    padding-block: 4px;
+    display: inline-block;
+}
+.custom-slider-track {
+    --offset: 0px;
+    --val-1: calc(calc(100% - 1.2em - 8px) * var(--position, 0) + .6em + 4px);
+    --val-2: calc(calc(100% - 1.2em - 8px) * var(--start, -1) + .6em + 4px);
+    border-radius: 1000vw;
+    border: 1px solid var(--border-1);
+    position: absolute;
+    inset: 40% 0 40% 0;
+    background: 
+        linear-gradient(var(--background-0), var(--background-1)) -1px -8px / calc(min(var(--val-1), var(--val-2)) - var(--offset) + 1px) calc(100% + 16px) no-repeat,
+        linear-gradient(var(--button-primary-bg-1), var(--button-primary-bg-0)) -1px -8px / calc(max(var(--val-1), var(--val-2)) + var(--offset) + 1px) calc(100% + 16px) no-repeat,
+        linear-gradient(var(--background-0), var(--background-1)) -1px -8px / calc(100% + 4px) calc(100% + 16px);
+}
+.custom-slider-track::after {
+    content: "";
+    border-radius: 1000vw;
+    position: absolute;
+    inset: 0;
+    background: 
+        linear-gradient(var(--background-0), var(--background-1)) -2px -8px / calc(min(var(--val-1), var(--val-2)) - var(--offset) + 1px) calc(100% + 16px) no-repeat,
+        linear-gradient(var(--button-primary-bg-1), var(--button-primary-bg-0)) -1px -8px / calc(max(var(--val-1), var(--val-2)) + var(--offset) + 1px) calc(100% + 16px) no-repeat,
+        linear-gradient(var(--background-0), var(--background-1)) -2px -8px / calc(100% + 4px) calc(100% + 16px);
+    z-index: 2;
+
+}
+.custom-slider.stepped .custom-slider-track {
+    --offset: calc(0.2em + 5px);
+    transition: background-size;
+    transition-duration: .1s;
+    transition-timing-function: cubic-bezier(0, 0.925, 0, 1.075);
+}
+.custom-slider.stepped .custom-slider-track::before {
+    transition: background-size;
+    transition-duration: .1s;
+    transition-timing-function: cubic-bezier(0, 0.925, 0, 1.075);
+}
+.custom-slider-thumb {
+    --bg-0: var(--button-primary-bg-0);
+    --bg-1: var(--button-primary-bg-1);
+    --bg-2: var(--button-primary-bg-2);
+    position: absolute;
+    top: 0;
+    left: calc(var(--position, 0) * 100%);
+    transform: translateX(calc(var(--position, 0) * -100%));
+    height: calc(1.2em + 8px);
+    width: calc(1.2em + 8px);
+    border-radius: 1000vw;
+    border: 1px solid var(--border-0);
+    background: var(--background-1) linear-gradient(var(--bg-2), var(--bg-1)) -1px -1px / calc(100% + 2px) calc(100% + 2px);
+    box-shadow: inset var(--shadow-0), var(--shadow-1);
+    z-index: 3;
+}
+.custom-slider.stepped .custom-slider-thumb {
+    transition: inset, transform;
+    transition-duration: .1s;
+    transition-timing-function: cubic-bezier(0, 0.925, 0, 1.075);
+}
+.custom-slider-thumb::before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 3px;
+    border: 1px solid var(--border-1);
+    background: linear-gradient(var(--bg-0), var(--bg-1)) -1px -1px / calc(100% + 2px) calc(100% + 2px);
+    border-radius: 1000vw;
+    box-shadow: inset var(--shadow-0);
+}
+.custom-slider:focus-visible {
+    outline: none;
+}
+.custom-slider:focus-visible .custom-slider-thumb {
+    border-color: var(--border-1);
+    box-shadow: inset var(--shadow-0), 0 0 0 2px var(--color-highlighted);
+}
+.custom-slider-tick {
+    --val-1: calc(1000vw * max(calc(var(--position, 0) - var(--tick-pos, 0)), 0));
+    --val-2: calc(1000vw * max(calc(var(--tick-pos, 0) - var(--start, -1)), 0));
+    --val-3: calc(1000vw * max(calc(var(--tick-pos, 0) - var(--position, 0)), 0));
+    --val-4: calc(1000vw * max(calc(var(--start, -1) - var(--tick-pos, 0)), 0));
+    display: block;
+    position: absolute;
+    top: .4em;
+    left: calc(var(--tick-pos, 0) * calc(100% - 1.2em - 8px) + 0.4em);
+    height: calc(0.4em + 8px);
+    width: calc(0.4em + 8px);
+    border-radius: 1000vw;
+    border: 1px solid var(--border-1);
+    background: 
+        linear-gradient(var(--button-primary-bg-1), var(--button-primary-bg-0)) max(var(--val-1), var(--val-2)) -1px / calc(100% + 4px) calc(100% + 4px) no-repeat,
+        linear-gradient(var(--button-primary-bg-1), var(--button-primary-bg-0)) max(var(--val-3), var(--val-4)) -1px / calc(100% + 4px) calc(100% + 4px) no-repeat,
+        linear-gradient(var(--background-0), var(--background-1)) -2px -2px / calc(100% + 4px) calc(100% + 4px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.custom-slider:hover .custom-slider-thumb {
+    border-color: var(--border-1);
+}
+.custom-slider:active .custom-slider-thumb {
+    border-color: var(--border-0);
+    background-image: linear-gradient(var(--bg-1), var(--bg-0));
+}
+.custom-slider:active .custom-slider-thumb::before {
+    border-color: var(--border-0);
+    background-image: linear-gradient(var(--bg-0), var(--bg-1));
+}
+
+
+.note-container {
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: var(--shadow-2);
+}
+.card-filters {
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    padding: 10px 0 10px 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: var(--shadow-2);
+    white-space: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+}
+.card-filters > .choice-group {
+    display: inline-flex;
+    gap: 0px;
+    box-shadow: var(--shadow-1);
+    border-radius: 5px;
+    padding: 0;
+    margin: 0 10px 0 0;
+    flex: 0 0 fit-content;
+    align-items: stretch;
+    overflow: hidden;
+}
+.card-filters > .choice-group > * {
+    border-radius: 0;
+    margin-right: -1px;
+    box-shadow: none;
+    z-index: 1;
+}
+.card-filters > .choice-group > :disabled {
+    z-index: 2;
+}
+.card-filters > .choice-group > .value:disabled {
+    background-color: var(--bg-0);
+}
+.card-filters > .choice-group > :hover {
+    z-index: 3;
+}
+.card-filters > .choice-group > :active {
+    z-index: 0;
+}
+.card-filters > .choice-group > :first-child {
+    border-radius: 5px 0 0 5px;
+}
+.card-filters > .choice-group > :last-child {
+    border-radius: 0 5px 5px 0;
+    margin-right: 0;
+}
+.card-filters > .choice-group > .number {
+    border: 1px solid var(--border-0);
+    padding: 7px 10px;
+    font-family: var(--number-font);
+    background: var(--background-1);
+}
+
+.input-group {
+    display: flex;
+    flex-flow: row;
+    align-items: baseline;
+    gap: 2px;
+}
+.input-group label {
+    display: block;
+    margin-inline-start: -2px;
+    padding-inline: 5px;
+    padding-block-end: 3px;
+    border-bottom: 1px solid var(--border-0);
+}
+input[type="checkbox"] {
+    appearance: none;
+    position: relative;
+    display: inline-block;
+    background: var(--background-1);
+    box-shadow: inset var(--shadow-2), inset var(--shadow-1), var(--shadow-1);
+    border: 1px solid var(--border-0);
+    border-radius: 5px;
+    padding: 7px;
+    height: 35px;
+    width: 35px;
+    margin: 0;
+    font: inherit;
+}
+input[type="checkbox"]:hover {
+    border: 1px solid var(--border-1);
+}
+input[type="checkbox"]:active {
+    background: var(--background-0);
+    border: 1px solid var(--border-0);
+}
+input[type="checkbox"]::before {
+    content: "\00a0";
+}
+input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    transform: translate(.04em, -.15em) rotate(45deg);
+    width: 0.5em;
+    height: 1em;
+    border-bottom: 2px solid var(--color-0);
+    border-right: 2px solid var(--color-0);
+}
+
+.save-box {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    font: inherit;
+    font-size: 0.6em;
+    color: var(--color-0);
+    background: var(--background-1);
+    box-shadow: inset var(--shadow-2), inset var(--shadow-1), var(--shadow-1);
+    border: 1px solid var(--border-0);
+    border-radius: 5px;
+    padding: 7px;
+    margin-top: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.save-actions {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: end;
+}
+.save-summary {
+    padding-inline: 10px;
+}
+
+.about-scroll {
+    overflow-y: auto;
+    width: 500px;
+    max-width: calc(100% + 20px);
+    margin: -10px -10px 0 -10px;
+    padding: 10px 10px 0 10px;
+    text-align: center;
+}
+
+.info-button {
+    color: var(--color-1);
+    cursor: help;
+}
+
+.john {
+    background: var(--background-0);
+    display: block;
+    width: 732px;
+    max-width: min(732px, 100%);
+    aspect-ratio: 726 / 90;
+    border: none;
+}
