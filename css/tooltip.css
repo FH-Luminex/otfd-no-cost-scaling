@@ -1,0 +1,78 @@
+#tooltip {
+    background: var(--tooltip-background);
+    padding: 0px;
+    pointer-events: none;
+    position: fixed;
+    z-index: 2000000000;
+    padding: 7px 10px;
+    margin: 15px;
+    overflow: hidden;
+    border: 1px solid var(--border-0);
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: var(--shadow-3);
+    max-width: 360px;
+}
+#tooltip.active {
+    opacity: 1;
+}
+#tooltip small {
+    color: var(--color-1);
+    font-size: 12px;
+}
+#tooltip > :not(:first-child) {
+    margin-top: 7px;
+}
+
+#tooltip > .header {
+    padding: 7px 10px;
+    margin: -7px -10px 0 -10px;
+    background: linear-gradient(20deg, var(--background-2), transparent);
+}
+#tooltip > .quote {
+    color: var(--color-1);
+    text-align: end;
+    font-style: italic;
+}
+
+#tooltip > .formula > h4 {
+    font: inherit;
+    color: var(--color-1);
+    text-align: center;
+    border-bottom: 1px solid var(--border-0);
+    padding-block: 0 2px;
+}
+#tooltip > .formula > div {
+    display: flex;
+    border-bottom: 1px dashed var(--border-0);
+    padding-block: 3px 2px;
+    gap: 1em;
+}
+#tooltip > .formula > div > span {
+    display: block;
+    flex: 1;
+}
+#tooltip > .formula > div > :last-child {
+    flex: 0;
+    white-space: nowrap;
+    text-align: end;
+}
+
+#tooltip > .action {
+    color: var(--color-1);
+    text-align: center;
+}
+
+#tooltip > :is(ul, ol) {
+    margin-block: 0;
+    padding-inline-start: 2em;
+}
+
+#tooltip p {
+    margin-block: 5px 0;
+}
+#tooltip > p:first-child {
+    margin-block: 0;
+}

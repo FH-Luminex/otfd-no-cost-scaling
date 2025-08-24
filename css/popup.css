@@ -1,0 +1,576 @@
+.popup {
+    z-index: 2000000;
+    position: fixed;
+    inset: 0;
+    background: #0007;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: popup-in .1s;
+}
+.popup.opaque {
+    background: #000e;
+}
+.popup.closing {
+    opacity: 0;
+    animation: popup-out .2s;
+    pointer-events: none;
+}
+
+.popup > div {
+    padding: 10px;
+    max-height: calc(100% - 20px);
+}
+
+.popup:not(.clear) > div {
+    background: var(--background-1);
+    border: 1px solid var(--border-0);
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: var(--shadow-3);
+    min-width: 320px;
+    max-width: 480px;
+    overflow-y: auto;
+    animation: draw-in .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.popup.theatre > div {
+    max-width: 640px;
+}
+.popup:not(.clear) > .no-scroll {
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+}
+.popup.closing:not(.clear) > div {
+    animation: popup-body-out .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.popup:not(.clear) > div p {
+    margin-block: 10px 0;
+}
+.popup:not(.clear) > div > p:first-child {
+    margin-block: 0;
+}
+.popup:not(.clear) > div :is(ul, ol) {
+    margin-block: 0;
+    padding-inline: 2em;
+}
+.popup:not(.clear) > div .info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.popup:not(.clear) > div .header {
+    padding: 10px;
+    margin: -10px -10px 0 -10px;
+    background: linear-gradient(20deg, var(--background-2), transparent);
+}
+.popup:not(.clear) > div .quote {
+    color: var(--color-1);
+    text-align: end;
+    font-style: italic;
+}
+.popup:not(.clear) > div .actions {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    align-items: last baseline;
+    justify-content: end;
+    margin-top: 10px;
+    gap: 5px;
+}
+.popup:not(.clear) > div .formula > h4 {
+    font: inherit;
+    color: var(--color-1);
+    text-align: center;
+    border-bottom: 1px solid var(--border-0);
+    padding-block: 0 2px;
+}
+.popup:not(.clear) > div .formula:not(:first-child) {
+    margin-top: 10px;
+}
+.popup:not(.clear) > div .formula > div {
+    display: flex;
+    border-bottom: 1px dashed var(--border-0);
+    padding-block: 3px 2px;
+    gap: 1em;
+}
+.popup:not(.clear) > div .formula > div > span {
+    display: block;
+    flex: 1;
+    white-space: nowrap;
+}
+.popup:not(.clear) > div .formula > div > :last-child {
+    text-align: end;
+}
+.popup:not(.clear) > div .formula + .actions {
+    margin-top: 5px;
+}
+.popup:not(.clear) > div .split-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.popup:not(.clear) > div .action-group {
+    display: flex;
+    gap: 5px;
+}
+
+
+
+.popup.draw-popup > div {
+    width: 100%;
+}
+.popup.draw-popup .big-card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: justify;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50vh) perspective(100vh) rotateY(180deg);
+    width: min(calc(100vw - 50px), 240px);
+    aspect-ratio: 2 / 3;
+    box-sizing: content-box;
+
+    background: var(--pack-bg);
+    color: var(--pack-color);
+    border-image: var(--pack-border) 30 / 20px 1px;
+    box-shadow: var(--shadow-0);
+    padding: 30px 10px;
+}
+.popup.draw-popup .big-card[style*="--timer"] {
+    filter: brightness(calc(1 + var(--timer) * var(--timer) * var(--timer) * 3));
+    box-shadow: 0 0 calc(50px * var(--timer) * var(--timer)) rgba(255, 255, 255, var(--timer));
+    transform: translate(-50%, -50%) scale(calc(1 + var(--timer) * 0.2)) translate(var(--shake)) rotate(var(--rotate));
+    transition: transform calc(calc(1 - var(--timer)) * calc(1 - var(--timer)) * 0.3s);
+}
+.popup.draw-popup .big-card.broken {
+    transform: translate(-50%, -50%) scale(3);
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+}
+.popup.draw-popup .big-card .in-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.popup.draw-popup .big-card .out-flex {
+    display: flex;
+}
+
+.popup.draw-popup .card-header {
+    text-align: center;
+    transition: opacity .3s;
+    padding-top: 70px;
+}
+.popup.draw-popup .card-header + .card-list {
+    padding-top: 30px;
+}
+
+
+.popup.draw-popup .card-list {
+    max-height: calc(100vh + 20px);
+    overflow: hidden;
+    margin-block: -10px;
+    margin-inline: -10px;
+    padding-block: 100px calc(max(var(--padding, 50px), 50px) + 50px);
+    padding-inline: max(10px, calc(10% - 50px));
+    pointer-events: none;
+}
+.popup.draw-popup .card-list.done {
+    overflow-y: auto;
+    pointer-events: unset;
+}
+
+.popup.draw-popup .draw-result {
+    display: none;
+    text-align: center;
+}
+
+.popup.draw-popup .card-list.done + .draw-result {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: max(calc(50% - var(--height) / 2), 0px);
+    width: 100%;
+    padding: 20px;
+    display: block;
+    animation: float-in .5s;
+    z-index: 3;
+}
+.popup.draw-popup .draw-result-currencies {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 5px;
+    margin-bottom: 5px;
+    justify-content: center;
+    text-align: start;
+}
+.popup.draw-popup .draw-result-currencies > * {
+    width: 160px;
+}
+.popup-card-actions {
+    margin-top: 10px;
+}
+
+@keyframes popup-in {
+    from {
+        background: #0000;
+    } to {
+        background: #0007;
+    }
+}
+@keyframes popup-out {
+    from {
+        background: #0007;
+        opacity: 1;
+    } 50% {
+        background: #0000;
+    } to {
+        opacity: 0;
+    }
+}
+@keyframes popup-body-out {
+    from {
+        transform: none;
+    } to {
+        transform: scale(0.9) translate3d(0, 0, -150px) perspective(100vh) rotateX(5deg);
+    }
+}
+
+.popup.draw-legacy-popup .game-card.picked {
+    animation: 2s infinite legacy-picked-loop, 1s forwards legacy-picked
+}
+.popup.draw-legacy-popup .pick-done .game-card:not(.picked) {
+    animation: 1s forwards legacy-unpicked
+}
+
+@keyframes legacy-picked {
+    from {
+        transform: none;
+        box-shadow: none;
+    } to {
+        transform: translateY(-2px);
+        box-shadow: 0 0 4px white;
+    }
+}
+@keyframes legacy-picked-loop {
+    from {
+        transform: translateY(-2px);
+        box-shadow: 0 0 4px white;
+    } 50% {
+        transform: translateY(-4px);
+        box-shadow: 0 0 3px white;
+    } to {
+        transform: translateY(-2px);
+        box-shadow: 0 0 4px white;
+    }
+}
+@keyframes legacy-unpicked {
+    from {
+    } 30% {
+        filter: brightness(0.5);
+    } to {
+        transform: translateY(4px);
+        opacity: 0;
+    }
+}
+
+.show-image {
+    width: 602px;
+    margin: 8px;
+    max-width: calc(100% - 16px);
+    border: 1px solid var(--border-1);
+    aspect-ratio: 600 / 200;
+    position: relative;
+    background: var(--background-0);
+}
+.show-image > * {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.show-text {
+    min-height: 100px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.popup.sell-popup {
+    background: #0000;
+}
+#main-container.selling {
+    opacity: 0;
+    pointer-events: none;
+    animation: account-sell-in-pop 1s cubic-bezier(0.165, 0.84, 0.44, 1), 
+        account-sell-in-account-out cubic-bezier(0.95, 0.05, 0.795, 0.035) 1s 1s,
+        account-sell-in-account-light cubic-bezier(0.95, 0.05, 0.795, 0.035) 2s;
+}
+.popup.sell-popup .account-card {
+    background: black;
+    border: 1px solid green;
+    color: white;
+    padding: 10px;
+    pointer-events: none;
+    animation: 
+        account-sell-in-card-hold 2s,
+        account-sell-in-card-in cubic-bezier(0.19, 1, 0.22, 1) 2s 2s,
+        account-sell-in-card-light cubic-bezier(0.19, 1, 0.22, 1) 0.5s 2s;
+}
+.popup.sell-popup .account-card h4 {
+    text-transform: uppercase;
+}
+.popup.sell-popup .account-card .field {
+    display: flex;
+    width: 290px;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+.popup.sell-popup .account-card .field > :first-child {
+    flex: 80px;
+    text-align: end;
+    font-size: 0.8em;
+    text-transform: uppercase;
+}
+.popup.sell-popup .account-card .field > :nth-child(2) {
+    flex: 200px;
+    border: 1px solid green;
+    padding: 2px 5px;
+}
+.popup.sell-popup .account-card .field > :nth-child(2) > div {
+    overflow: hidden;
+    max-height: 1.3em;
+    line-height: 1.3em;
+    font-family: "Roboto Mono", monospace;
+    text-overflow: "_";
+}
+.popup.sell-popup .account-card .field:nth-child(2) > :nth-child(2) > div {
+    animation: account-sell-field-out linear forwards 0.8s 2s;
+}
+.popup.sell-popup .account-card .field:nth-child(3) > :nth-child(2) > div {
+    animation: account-sell-field-out linear forwards 0.8s 2.4s;
+}
+
+
+#main-container.selling-new {
+    opacity: 1;
+    pointer-events: none;
+    animation: 
+        account-sell-out-account-hold 2.5s, 
+        account-sell-out-account-in cubic-bezier(0.19, 1, 0.22, 1) 2s 2.5s,
+        account-sell-out-account-light cubic-bezier(0.19, 1, 0.22, 1) 1s 2.5s;
+}
+.popup.sell-popup.new-account .account-card {
+    opacity: 0;
+    animation: 
+        account-sell-out-card-hold 1.5s,
+        account-sell-out-card-out cubic-bezier(0.95, 0.05, 0.795, 0.035) 1s 1.5s,
+        account-sell-out-card-light cubic-bezier(0.95, 0.05, 0.795, 0.035) 0.5s 2s;
+}
+.popup.sell-popup.new-account .account-card .field:nth-child(2) > :nth-child(2) > div {
+    width: 0;
+    animation: account-sell-field-in linear forwards 0.8s 0s;
+}
+.popup.sell-popup.new-account .account-card .field:nth-child(3) > :nth-child(2) > div {
+    width: 0;
+    animation: account-sell-field-in linear forwards 0.8s 0.4s;
+}
+
+@keyframes account-sell-in-pop {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    } to {
+        opacity: 1;
+        transform: scale(0.8);
+    }
+}
+@keyframes account-sell-in-account-out {
+    from {
+        opacity: 1;
+        transform: perspective(calc(100dvh + 100dvw)) scale(0.8);
+    } to {
+        opacity: 1;
+        transform: perspective(calc(100dvh + 100dvw)) scale(0.4) rotateY(90deg);
+    }
+}
+@keyframes account-sell-in-account-light {
+    from {
+        
+    } to {
+        background: white;
+        filter: brightness(10) blur(5vw) drop-shadow(0 0 5vw white);
+    }
+}
+@keyframes account-sell-in-card-hold {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 0;
+    }
+}
+@keyframes account-sell-in-card-light {
+    from {
+        filter: brightness(10) blur(1vw) drop-shadow(0 0 1vw white);
+    } to {
+
+    }
+}
+@keyframes account-sell-in-card-in {
+    from {
+        transform: perspective(calc(100dvh + 100dvw)) scale(2) rotateY(-90deg);
+    } to {
+        transform: perspective(calc(100dvh + 100dvw)) scale(1);
+    }
+}
+@keyframes account-sell-field-out {
+    from {
+        width: 100%;
+    } to {
+        width: 0px;
+    }
+}
+
+@keyframes account-sell-out-account-hold {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 0;
+    }
+}
+@keyframes account-sell-out-account-in {
+    from {
+        transform: perspective(calc(100dvh + 100dvw)) scale(0.5) rotateY(-90deg);
+    } to {
+        transform: perspective(calc(100dvh + 100dvw)) scale(1);
+    }
+}
+@keyframes account-sell-out-account-light {
+    from {
+        background: white;
+        filter: brightness(10) blur(5vw) drop-shadow(0 0 5vw white);
+    } to {
+    }
+}
+@keyframes account-sell-out-card-hold {
+    from {
+        opacity: 1;
+    } to {
+        opacity: 1;
+    }
+}
+@keyframes account-sell-out-card-light {
+    from {
+    } to {
+        filter: brightness(10) blur(1vw) drop-shadow(0 0 1vw white);
+    }
+}
+@keyframes account-sell-out-card-out {
+    from {
+        opacity: 1;
+        transform: perspective(calc(100dvh + 100dvw)) scale(1);
+    } to {
+        opacity: 1;
+        transform: perspective(calc(100dvh + 100dvw)) scale(1.4) rotateY(90deg);
+    }
+}
+@keyframes account-sell-field-in {
+    from {
+        width: 0px;
+    } to {
+        width: 100%;
+    }
+}
+
+.popup.sell-result > div {
+    text-align: center;
+    animation: 0.3s sell-result-header-in;
+}
+.popup.sell-result .hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+.popup.sell-result .sell-points {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    overflow-y: auto;
+    gap: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 400px;
+    border: 1px solid green;
+    background: #000a;
+    backdrop-filter: blur(5px);
+}
+.popup.sell-result .sell-points > h3 {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    padding-bottom: 6px;
+    text-align: center;
+    background: linear-gradient(90deg, #0000, var(--border-0) 20%, var(--border-1), var(--border-0) 80%, #0000) bottom / 100% 1px no-repeat;
+}
+.popup.sell-result .sell-points > h3:not(.hidden),
+.popup.sell-result .actions:not(.hidden) {
+    animation: 0.3s sell-result-header-in;
+}
+.popup.sell-result .sell-points > div {
+    padding: 4px 8px;
+    margin: -4px;
+}
+.popup.sell-result .sell-points > div:not(.hidden) {
+    animation: 0.3s sell-result-point-in;
+}
+.popup.sell-result .actions {
+    margin-top: 15px;
+}
+
+@keyframes sell-result-header-in {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    } to {
+        opacity: 1;
+    }
+}
+@keyframes sell-result-point-in {
+    from {
+        background: var(--color-0);
+    } to {
+        background: transparent;
+    }
+}
+
+
+.popup.notad-popup > div {
+    background: #000e;
+    width: max(900px, 90%);
+    height: max(600px, 90%);
+    box-shadow: 0 0 0 1px var(--border-0);
+    animation: .5s cubic-bezier(0.215, 0.610, 0.355, 1) ad-popup-in;
+    overflow: hidden;
+}
+@media (max-width: 960px) {
+    .popup.notad-popup > div {
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border: none;
+    }
+}
+
+@keyframes ad-popup-in {
+    from {
+        transform: translateY(100dvh);
+    } to {
+        transform: none;
+    }
+}

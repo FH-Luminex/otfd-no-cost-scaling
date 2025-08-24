@@ -1,0 +1,292 @@
+#draw-opt-show, #draw-opt-hide {
+    display: none;
+}
+
+@media (max-width: 960px) {
+    #main-container {
+        margin: 0;
+    }
+
+    .subtab-holder {
+        flex-direction: column-reverse;
+        margin: -80px -10px -90px -10px;
+        padding: 80px 0px 90px 0px;
+        height: calc(100% + 170px);  
+    }
+    .subtab-holder .tab-buttons {
+        height: 34px;
+        display: flex;
+        align-items: stretch;
+        border-bottom: 0;
+        border-top: 1px solid var(--border-1);
+    }
+    .subtab-content {
+        margin: -80px 0px -90px 0px;
+        padding: 80px 10px 90px 10px;
+    }
+    .tab-buttons:not([style*="none"]) + .subtab-content {
+        margin-top: -80px;
+        margin-bottom: 0;
+        padding-bottom: 10px;
+    }
+    .subtab-holder > .tab-buttons {
+        margin: 0;
+        padding-inline: 20px;
+    }
+    
+    .infobook-cards {
+        --inline-padding: 20px;
+        margin-inline: 0px;
+        mask: none;
+    }
+    .page-indicators {
+        margin-block: 5px 10px;
+    }
+    .infobook-holder .page-button.left {
+        left: auto;
+        right: 55px;
+        top: 75px;
+        transform: none;
+    }
+    .infobook-holder .page-button.right {
+        right: 10px;
+        top: 75px;
+        transform: none;
+    }
+
+    #sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        background: transparent;
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+    #currencies {
+        position: fixed;
+        inset: 0 0 auto 0;
+        padding: 10px;
+        overflow-x: auto;
+        display: flex;
+        flex-flow: column wrap;
+        align-items: flex-start;
+        align-content: flex-start;
+        background: linear-gradient(0deg, #0000, #0007, #000a, #000c);
+        height: 74px;
+    }
+    #currencies > * {
+        width: 280px;
+    }
+    #draw-zone {
+        position: fixed;
+        inset: auto 0 54px 0;
+        padding: 0 max(25px, calc(50% - 180px));
+        padding-top: 10px;
+        min-height: 92px;
+        background: linear-gradient(#0000, #0007, #000a, #000c);
+    }
+    #draw-zone > * {
+        transition: opacity .3s;
+    }
+    #draw-button {
+        font-size: 1em;
+        display: flex;
+        transition: opacity .3s, transform .3s;
+    }
+    #draw-button-amount {
+        margin-top: 0;
+        flex: 1;
+    }
+    #draw-options {
+        position: fixed;
+        inset: auto 10px 64px 10px;
+        margin: 0 max(0px, calc(50% - 180px));
+        min-height: auto;
+        background: var(--background-2);
+        border: 1px solid var(--border-0);
+        border-radius: 5px;
+        box-shadow: var(--shadow-2);
+
+        transform: translateX(-100vw);
+        opacity: 0;
+        transition: opacity 0.4s, transform 0.4s;
+    }
+    #draw-opt-show {
+        position: absolute;
+        bottom: calc(17px + 1.2em);
+        left: max(20px, calc(50% - 195px));
+        width: 40px;
+        height: 40px;
+    }
+    #sidebar.option-unlocked #draw-opt-show {
+        display: block;
+    }
+    #sidebar.option-unlocked #draw-button-action {
+        margin-inline-start: 30px;
+    }
+    #draw-opt-hide {
+        display: block;
+        margin-inline-end: 8px;
+    }
+
+    #sidebar.option-active #draw-zone > * {
+        opacity: 0;
+        pointer-events: none;
+    }
+    #sidebar.option-active #draw-options {
+        opacity: 1;
+        transform: none;
+    }
+
+    main {
+        flex-direction: column-reverse;
+        max-width: 100dvw;
+    }
+    #tab-buttons {
+        flex: 0 0 45px;
+        border-bottom: none;
+        border-top: 1px solid var(--border-1);
+        padding: 0 20px 10px 20px;
+        margin: 0 -10px 0 -10px;
+    }
+    #tab-content {
+        margin-bottom: 0px;
+        margin-inline: -10px;
+        padding: 80px 10px 90px 10px;
+    }
+    .tab-buttons > button > iconify-icon {
+        font-size: 21px;
+        vertical-align: -4px;
+    }
+    .tab-buttons > button:hover {
+        background: linear-gradient(0deg, #0000 60%, var(--background-1));
+    }
+    .tab-buttons > button:active {
+        background: linear-gradient(0deg, #0000 50%, var(--background-2));
+    }
+    .tab-buttons > button:disabled {
+        background: linear-gradient(0deg, #0000, var(--border-0) 60%, var(--border-1));
+        font-weight: bold;
+    }
+    
+    .faction-picker.locked {
+        display: flex;
+    }
+    .faction-picker.locked > :not(#draw-opt-hide) {
+        display: none;
+    }
+    #draw-opt-hide {
+        max-width: calc(calc(100% - 18px) / 7);
+    }
+}
+
+@media (max-width: 600px) {
+    .opt-entry {
+        flex-direction: column;
+        gap: 2px;
+    }
+    .opt-entry > label {
+        text-align: start;
+        flex: auto;
+    }
+    .save-timer-br::after {
+        content: " ";
+    }
+    .choice-group {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        padding: 5px 10px;
+        margin: -5px -10px;
+    }
+    .popup:not(.clear) > div .split-list {
+        grid-template-columns: 1fr;
+    }
+
+    .notad-popup > div > .info > div:first-child span {
+        display: none;
+        font-size: 0;
+    }
+}
+
+@media (max-width: 520px) {
+    .tab-buttons > button {
+        font-size: 0;
+        width: 50px;
+    }
+
+    #tab-content::before {
+        content: attr(tab-name);
+        font-size: 1.5em;
+        display: block;
+        margin-bottom: 15px;
+        font-weight: bold;
+        transform: translateY(calc(var(--scroll) * -1));
+    }
+    .subtab-holder {
+        margin-top: calc(-1.8em - 15px);
+    }
+    .subtab-content {
+        padding-top: calc(1.8em + 35px);
+        position: relative;
+    }
+    .subtab-content::after {
+        content: "";
+        z-index: -1;
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: calc(1.8em + 90px);
+        background-color: var(--background-1);
+        border-bottom: 1px solid var(--border-0);
+    }
+    .tab-buttons:not([style*="none"]) + .subtab-content[tab-name]::before {
+        content: attr(tab-name);
+        font-size: 1.25em;
+        display: block;
+        margin-top: -2em;
+        margin-bottom: 25px;
+        font-weight: bold;
+        text-align: right;
+        font-style: italic;
+    }
+
+    .popup:not(.clear) > div {
+        min-width: none;
+        max-width: none;
+        width: 100%;
+    }
+
+    .popup:not(.clear) > div > .actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+    .popup:not(.clear) > div > .actions > .flex-fill {
+        display: none;
+    }
+    .save-actions {
+        align-items: stretch;
+    }
+    .popup:not(.clear) > div .action-group > * {
+        flex: 1;
+    }
+
+    .subtab-holder {
+        margin-top: calc(-1.8em - 95px);
+    }
+    .subtab-content {
+        padding-top: calc(1.8em + 105px);
+    }
+    .tab-buttons:not([style*="none"]) + .subtab-content {
+        padding-top: calc(1.8em + 95px);
+    }
+
+    .popup-upg-main-action {
+        flex: 1;
+    }
+
+    #draw-options {
+        opacity: 1;
+    }
+}
