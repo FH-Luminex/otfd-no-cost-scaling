@@ -1,4 +1,4 @@
-This is a quick little modded version of the game "One trillion free draws" by ducdat0507 with no card level cost scaling as the name implies
+This is a quick little modded version of the game "One Trillion Free Draws" by ducdat0507 with no card level cost scaling as the name implies.
 
 Disclaimers:
 1. This is very low effort, like, ridiculously low effort.
