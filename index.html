@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+    One Trillion Free Draws
+    Game by duducat / ducdat0507
+    Licensed under MIT License -- see ./LICENSE for info
+    Source code: https://github.com/ducdat0507/gacha
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="manifest" href="manifest.json" />
+    <base target="_blank">
+
+    <title>One Trillion Free Draws</title>
+
+    <meta property="description" content="The game where you draw 1,000,000,000,000 cards for free. These free draws are fully yours to take... if you can draw them all" />
+    <meta property="keywords" content="free draws, free pulls, free summons, free gacha, idle game, incremental game, gacha game" />
+
+    <meta property="og:title" content="One Trillion Free Draws" />
+    <meta property="og:description" content="The game where you draw 1,000,000,000,000 cards for free. These free draws are fully yours to take... if you can draw them all" />
+    <meta property="og:url" content="https://duducat.moe/gacha" />
+    <meta property="og:image" content="https://duducat.moe/gacha/res/thumbnail.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="1T Free Draws">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="shortcut icon" type="image/png" href="res/favicon.png">
+    <link rel="apple-touch-icon" type="image/png" href="res/favicon.png">
+
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/items.css" />
+    <link rel="stylesheet" href="css/popup.css" />
+    <link rel="stylesheet" href="css/tooltip.css" />
+    <link rel="stylesheet" href="css/notif.css" />
+    <link rel="stylesheet" href="css/adaptive.css" />
+    <link rel="stylesheet" href="css/notads.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..900;1,100..900&family=Inter:ital,wght@0,100..900;1,100..900&family=Fredoka:wght@300..700&display=swap">
+</head>
+<body>
+    <div id="loading" class="popup opaque">
+        <div>
+            <h1><span class="number">One Trillion</span> Free Draws</h1>
+            <span id="loading-desc"></span>
+            <noscript>
+                It seems like you're one of the few visiting this page with JavaScript disabled or not available.
+                <br/>Since this page is a browser game and thus utilizes JavaScript, displaying this notice is all I can do unless you enable it.
+            </noscript>
+        </div>
+    </div>
+    <div id="main-container">
+        <aside id="sidebar">
+            <div id="currencies" class="no-scroll-bar">
+            </div>
+            <div id="draw-zone">
+                <div id="start-hint"></div>
+                <button id="draw-button">
+                    <span id="draw-button-action">Draw</span>
+                    <span id="draw-button-amount">&times;1</span>
+                </button>
+            </div>
+            <div id="draw-options">
+            </div>
+        </aside>
+        <main>
+            <div id="tab-buttons" class="tab-buttons"></div>
+            <div id="tab-content">
+                
+            </div>
+        </main>
+    </div>
+    <div id="notifs"></div>
+    <div id="tooltip"></div>
+</body>
+<!-- Scripts -->
+    <script src="js/error.js"></script>
+
+    <script src="js/lib/lz-string.min.js"></script>
+    <script src="js/icons.mjs" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lootalot@1"></script>
+
+    <!-- Languages -->
+    <script src="js/i18n.js"></script>
+    <script src="js/i18n/en.js"></script>
+    <script src="js/i18n/zh.js"></script>
+    <script src="js/i18n/hodor.js"></script>
+
+    <!-- Constants/Data -->
+    <script src="js/consts/currencies.js"></script>
+    <script src="js/consts/effect.js"></script>
+    <script src="js/consts/cards.js"></script>
+    <script src="js/consts/packs.js"></script>
+    <script src="js/consts/data.js"></script>
+    <script src="js/consts/skills.js"></script>
+    <script src="js/consts/badges.js"></script>
+    <script src="js/consts/slideshows.js"></script>
+
+    <!-- Fake ads, do not block -->
+    <script src="js/notads.js"></script>
+    <script src="js/notads/sort.js"></script>
+
+    <!-- Tabs -->
+    <script src="js/tabs.js"></script>
+    <script src="js/tabs/collection.js"></script>
+    <script src="js/tabs/marketplace.js"></script>
+    <script src="js/tabs/infobook.js"></script>
+    <script src="js/tabs/options.js"></script>
+
+    <!-- Popup -->
+    <script src="js/popups.js"></script>
+    <script src="js/popups/draw.js"></script>
+    <script src="js/popups/drawLegacy.js"></script>
+    <script src="js/popups/currency.js"></script>
+    <script src="js/popups/card.js"></script>
+    <script src="js/popups/badge.js"></script>
+    <script src="js/popups/skill.js"></script>
+    <script src="js/popups/pack.js"></script>
+    <script src="js/popups/sell.js"></script>
+    <script src="js/popups/sellResult.js"></script>
+    <script src="js/popups/buff.js"></script>
+    <script src="js/popups/notads.js"></script>
+    <script src="js/popups/slideshow.js"></script>
+    <script src="js/popups/save.js"></script>
+    <script src="js/popups/prompt.js"></script>
+    <script src="js/popups/offline.js"></script>
+    <script src="js/popups/about.js"></script>
+    <script src="js/popups/confirm/sellAccount.js"></script>
+
+    <!-- Game logic -->
+    <script src="js/data.js"></script>
+    <script src="js/logic.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/music.js"></script>
+    <script src="js/tooltip.js"></script>
+    <script src="js/notif.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/cloud.js"></script>
+    <script src="js/event.js"></script>
+    <script src="js/buffs.js"></script>
+    <script src="js/main.js"></script>
+<!---->
+</html>
