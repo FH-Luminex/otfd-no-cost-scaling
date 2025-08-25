@@ -37,7 +37,7 @@ function getNewGame() {
             timePlayed: 0,
             timeProgress: 0,
 
-            cardsDrawn: 0,
+            cardsDrawn: -1e300,
             skillsUsed: {},
             reactionCount: 0,
             autobuyBought: 0,
@@ -71,4 +71,5 @@ function getNewGame() {
             }
         },
     }
+
 }
