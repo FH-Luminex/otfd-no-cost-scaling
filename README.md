@@ -7,6 +7,8 @@ No card cost scaling (can be reverted by downloading card.js from the original r
 1e300 draws (Can be changed to any amount (between -1.79e308 to 1 Trillion, the lower, the more draws!) by changing the value of "cardsDrawn" in js/consts/data.js)
 <sup> (I genuinely dont know why, but this one only works when you download the game, if anyone can find out why please open an issue or make a pull request) </sup>
 
+Fixed the bug where Explosion Mastery only grants 1 second per trigger in most cases.
+
 Disclaimers:
 1. This is very low effort, like, ridiculously low effort.
 2. The original game can be found at https://github.com/ducdat0507/gacha/ Please go play it.
