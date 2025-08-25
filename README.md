@@ -5,6 +5,7 @@ Current changes incldude:
 No card cost scaling (can be reverted by downloading card.js from the original repository an overriding it in js/consts
 
 1e300 draws (Can be changed to any amount (between -1.79e308 to 1 Trillion, the lower, the more draws!) by changing the value of "cardsDrawn" in js/consts/data.js)
+(I genuinely dont know why, but this one only works when you download the game, if anyone can find out why please open an issue)
 
 Disclaimers:
 1. This is very low effort, like, ridiculously low effort.
